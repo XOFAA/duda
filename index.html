@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Me dá um beijinho?</title>
+  <title>Pedido de Aumento 😅</title>
 
   <!-- Fonte fofa do Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
@@ -21,8 +21,8 @@
       align-items: center;
       justify-content: center;
       font-family: "Poppins", sans-serif;
-      background: radial-gradient(circle at top left, #ffdde1, #ee9ca7);
-      color: #2b2b2b;
+      background: radial-gradient(circle at top left, #dff6ff, #b7e4c7);
+      color: #1f2937;
       overflow: hidden;
     }
 
@@ -32,19 +32,19 @@
       border-radius: 1.5rem;
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
       text-align: center;
-      max-width: 420px;
+      max-width: 460px;
       width: 90%;
       backdrop-filter: blur(8px);
     }
 
     h1 {
-      font-size: 1.8rem;
+      font-size: 1.75rem;
       margin-bottom: 0.5rem;
     }
 
     p.subtitle {
-      font-size: 0.95rem;
-      color: #666;
+      font-size: 0.98rem;
+      color: #4b5563;
       margin-bottom: 2rem;
     }
 
@@ -60,12 +60,13 @@
     .btn {
       border: none;
       border-radius: 999px;
-      padding: 0.75rem 1.8rem;
+      padding: 0.8rem 1.9rem;
       font-size: 1rem;
       cursor: pointer;
       transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
       font-weight: 600;
       white-space: nowrap;
+      user-select: none;
     }
 
     .btn:active {
@@ -73,32 +74,38 @@
     }
 
     .btn-sim {
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      background: linear-gradient(135deg, #22c55e, #16a34a);
       color: #fff;
-      box-shadow: 0 8px 18px rgba(255, 117, 140, 0.4);
-      z-index: 10; /* sempre na frente */
+      box-shadow: 0 8px 18px rgba(34, 197, 94, 0.4);
+      z-index: 10;
     }
 
     .btn-sim:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 22px rgba(255, 117, 140, 0.55);
+      box-shadow: 0 10px 22px rgba(34, 197, 94, 0.55);
     }
 
     .btn-nao {
-      background: #f1f1f1;
-      color: #555;
+      background: #f3f4f6;
+      color: #374151;
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
       transition: transform 0.2s ease;
       z-index: 1;
     }
 
     .btn-nao:hover {
-      background: #e7e7e7;
+      background: #e5e7eb;
     }
 
     .emoji {
       font-size: 2.4rem;
       margin-bottom: 0.4rem;
+    }
+
+    .tiny {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: #6b7280;
     }
 
     /* Responsividade */
@@ -108,7 +115,7 @@
       }
 
       h1 {
-        font-size: 1.5rem;
+        font-size: 1.45rem;
       }
 
       .btn {
@@ -124,14 +131,16 @@
 </head>
 <body>
   <div class="card">
-    <div class="emoji">😘</div>
-    <h1>Me dá um beijinho?</h1>
-    <p class="subtitle">Pensa bem antes de responder... sua escolha é muito importante 😏</p>
+    <div class="emoji">💼😄</div>
+    <h1>Bora ajustar meu salário?</h1>
+    <p class="subtitle">Respira fundo antes de responder… essa decisão vai mudar vidas (a minha) 😌</p>
 
     <div class="buttons-wrapper" id="buttonsWrapper">
-      <button class="btn btn-sim" id="btnSim">Sim 💖</button>
+      <button class="btn btn-sim" id="btnSim">Sim, merece! 💰✨</button>
       <button class="btn btn-nao" id="btnNao">Não 😶</button>
     </div>
+
+    <div class="tiny" id="tinyText">*Opção “Não” sujeita a condições misteriosas…</div>
   </div>
 
   <script>
@@ -141,11 +150,12 @@
     const title = document.querySelector('h1');
     const subtitle = document.querySelector('.subtitle');
     const emoji = document.querySelector('.emoji');
+    const tinyText = document.getElementById('tinyText');
 
     let naoStartedRunning = false;
 
     function moveNoButton() {
-      // Ativa modo "fugitivo" apenas quando a pessoa tenta clicar
+      // ativa modo fugitivo só quando tentarem usar o "Não"
       if (!naoStartedRunning) {
         btnNao.style.position = "absolute";
         naoStartedRunning = true;
@@ -160,33 +170,34 @@
       let newX = Math.random() * maxX;
       let newY = Math.random() * maxY;
 
-      const padding = 5;
+      const padding = 6;
       newX = Math.min(Math.max(newX, padding), maxX - padding);
       newY = Math.min(Math.max(newY, padding), maxY - padding);
 
       btnNao.style.transform = `translate(${newX}px, ${newY}px)`;
     }
 
-    // Fugir no desktop (mouse)
+    // fugir no desktop (mouse)
     btnNao.addEventListener('mouseenter', moveNoButton);
 
-    // Fugir se a pessoa for rápida demais 😂
+    // fugir se a pessoa for rápida demais 😂
     btnNao.addEventListener('click', (e) => {
       e.preventDefault();
       moveNoButton();
     });
 
-    // Fugir no celular (toque)
+    // fugir no celular (toque)
     btnNao.addEventListener('touchstart', (e) => {
       e.preventDefault();
       moveNoButton();
     }, { passive: false });
 
-    // Clique no "Sim"
+    // clique no "Sim"
     btnSim.addEventListener('click', () => {
-      title.textContent = 'Eu já sabia! 💕';
-      subtitle.textContent = 'Agora vem aqui receber seu beijinho 😘';
-      emoji.textContent = '💋';
+      title.textContent = 'Eu sabia que você era sensato(a)! 😄💚';
+      subtitle.textContent = 'Fechado então! Obrigado pelo reconhecimento — você é 10/10 ⭐';
+      emoji.textContent = '📈💸';
+      tinyText.textContent = '*RH acabou de soltar fogos invisíveis aqui.';
 
       // remove botão NAO
       btnNao.style.display = 'none';
