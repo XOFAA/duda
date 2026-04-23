@@ -3,649 +3,201 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎁 Sorteio do Giovanne</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <title>Convite 🍻</title>
 
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-
-    :root{
-      --bg1:#090e1d;
-      --bg2:#1b1237;
-      --card:rgba(255,255,255,.08);
-      --stroke:rgba(255,255,255,.12);
-      --text:#fff;
-      --muted:rgba(255,255,255,.78);
-      --pink:#ff2f86;
-      --pink2:#ff0055;
-      --green:#18d26e;
-      --gold:#ffd54a;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
 
-    body{
-      font-family:'Montserrat',sans-serif;
-      min-height:100vh;
-      color:var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(255,47,134,.22), transparent 30%),
-        radial-gradient(circle at top right, rgba(88,125,255,.16), transparent 28%),
-        linear-gradient(135deg,var(--bg1),var(--bg2));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      overflow-x:hidden;
-      position:relative;
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #111827, #7c2d12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: white;
+      padding: 20px;
     }
 
-    .bg-glow{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background:
-        radial-gradient(circle at 18% 28%, rgba(255,0,85,.15), transparent 20%),
-        radial-gradient(circle at 82% 20%, rgba(255,213,74,.12), transparent 18%),
-        radial-gradient(circle at 50% 78%, rgba(24,210,110,.10), transparent 22%);
-      filter:blur(30px);
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(14px);
+      border-radius: 28px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: 0 25px 70px rgba(0,0,0,.35);
     }
 
-    .card{
-      width:min(100%, 470px);
-      background:var(--card);
-      border:1px solid var(--stroke);
-      backdrop-filter:blur(14px);
-      border-radius:28px;
-      box-shadow:0 25px 70px rgba(0,0,0,.45);
-      padding:24px 16px 22px;
-      text-align:center;
-      position:relative;
-      z-index:2;
-      overflow:hidden;
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 12px;
     }
 
-    .shine{
-      position:absolute;
-      inset:auto -30% 85% -30%;
-      height:120px;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
-      transform:rotate(-6deg);
-      pointer-events:none;
+    p {
+      font-size: 1rem;
+      opacity: .85;
+      margin-bottom: 28px;
     }
 
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:8px 14px;
-      border-radius:999px;
-      font-weight:800;
-      font-size:.82rem;
-      color:#ffd6e7;
-      background:rgba(255,47,134,.14);
-      border:1px solid rgba(255,47,134,.24);
-      margin-bottom:14px;
+    .emoji {
+      font-size: 4rem;
+      margin-bottom: 18px;
+      animation: pulse 1.5s infinite;
     }
 
-    h1{
-      font-size:clamp(1.35rem, 4vw, 1.75rem);
-      line-height:1.2;
-      font-weight:900;
-      margin-bottom:10px;
+    .buttons {
+      width: 100%;
+      height: 210px;
+      position: relative;
+      margin-top: 10px;
     }
 
-    .subtitle{
-      color:var(--muted);
-      font-size:.95rem;
-      line-height:1.55;
-      margin:0 auto 16px;
-      max-width:34ch;
+    button {
+      border: none;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .15s;
+      white-space: nowrap;
     }
 
-    .screen{display:none}
-    .screen.active{display:block}
-
-    .wheel-wrap{
-      position:relative;
-      width:min(80vw, 310px);
-      height:min(80vw, 310px);
-      margin:18px auto 14px;
-      display:grid;
-      place-items:center;
+    button:active {
+      transform: scale(.95);
     }
 
-    .wheel-ring{
-      position:absolute;
-      inset:-12px;
-      border-radius:50%;
-      background:
-        conic-gradient(from 0deg,
-          #fff2 0deg 15deg,
-          #ffffff09 15deg 30deg,
-          #fff2 30deg 45deg,
-          #ffffff09 45deg 60deg,
-          #fff2 60deg 75deg,
-          #ffffff09 75deg 90deg,
-          #fff2 90deg 105deg,
-          #ffffff09 105deg 120deg,
-          #fff2 120deg 135deg,
-          #ffffff09 135deg 150deg,
-          #fff2 150deg 165deg,
-          #ffffff09 165deg 180deg,
-          #fff2 180deg 195deg,
-          #ffffff09 195deg 210deg,
-          #fff2 210deg 225deg,
-          #ffffff09 225deg 240deg,
-          #fff2 240deg 255deg,
-          #ffffff09 255deg 270deg,
-          #fff2 270deg 285deg,
-          #ffffff09 285deg 300deg,
-          #fff2 300deg 315deg,
-          #ffffff09 315deg 330deg,
-          #fff2 330deg 345deg,
-          #ffffff09 345deg 360deg);
-      filter:blur(2px);
-      opacity:.85;
+    #yesBtn {
+      background: #22c55e;
+      color: white;
+      box-shadow: 0 10px 25px rgba(34,197,94,.35);
+      position: absolute;
+      left: 55px;
+      top: 0;
     }
 
-    .pointer{
-      position:absolute;
-      top:-10px;
-      left:50%;
-      transform:translateX(-50%);
-      width:0;
-      height:0;
-      border-left:18px solid transparent;
-      border-right:18px solid transparent;
-      border-top:34px solid var(--gold);
-      z-index:8;
-      filter:drop-shadow(0 4px 10px rgba(0,0,0,.35));
+    #noBtn {
+      background: #ef4444;
+      color: white;
+      box-shadow: 0 10px 25px rgba(239,68,68,.35);
+      position: absolute;
+      right: 55px;
+      top: 0;
     }
 
-    .wheel{
-      width:100%;
-      height:100%;
-      border-radius:50%;
-      position:relative;
-      border:8px solid rgba(255,255,255,.14);
-      box-shadow:
-        inset 0 0 0 7px rgba(0,0,0,.18),
-        0 18px 40px rgba(0,0,0,.35);
-      overflow:hidden;
-      background:
-        conic-gradient(
-          #ff4d6d 0deg 45deg,
-          #ff9f1c 45deg 90deg,
-          #2ec4b6 90deg 135deg,
-          #3a86ff 135deg 180deg,
-          #8338ec 180deg 225deg,
-          #ff006e 225deg 270deg,
-          #06d6a0 270deg 315deg,
-          #ffd166 315deg 360deg
-        );
-      transition:transform 12s cubic-bezier(.07,.88,.11,1);
+    .footer {
+      margin-top: 16px;
+      font-size: .82rem;
+      opacity: .65;
     }
 
-    .wheel::after{
-      content:"";
-      position:absolute;
-      inset:50%;
-      width:76px;
-      height:76px;
-      transform:translate(-50%,-50%);
-      border-radius:50%;
-      background:linear-gradient(135deg,#ffffff,#d9d9d9);
-      box-shadow:0 8px 16px rgba(0,0,0,.35);
-      z-index:6;
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
     }
 
-    .wheel-center{
-      position:absolute;
-      z-index:9;
-      width:56px;
-      height:56px;
-      border-radius:50%;
-      background:linear-gradient(135deg,var(--pink),var(--pink2));
-      box-shadow:0 8px 20px rgba(255,0,85,.35);
-      display:grid;
-      place-items:center;
-      font-size:1.2rem;
-      font-weight:900;
-    }
+    @media (max-width: 420px) {
+      h1 {
+        font-size: 1.6rem;
+      }
 
-    .label{
-      position:absolute;
-      left:50%;
-      top:50%;
-      width:42%;
-      transform-origin:0 0;
-      font-size:.78rem;
-      font-weight:800;
-      text-align:right;
-      color:#fff;
-      text-shadow:0 1px 3px rgba(0,0,0,.45);
-      padding-right:14px;
-      white-space:nowrap;
-      pointer-events:none;
-    }
+      .buttons {
+        height: 240px;
+      }
 
-    .btn{
-      border:none;
-      border-radius:999px;
-      padding:14px 22px;
-      font-weight:900;
-      font-size:.95rem;
-      cursor:pointer;
-      transition:.18s;
-      min-width:190px;
-      font-family:inherit;
-    }
+      button {
+        padding: 13px 22px;
+        font-size: .95rem;
+      }
 
-    .btn:active{transform:scale(.97)}
-    .btn:disabled{opacity:.7;cursor:not-allowed}
+      #yesBtn {
+        left: 35px;
+      }
 
-    .btn-primary{
-      background:linear-gradient(135deg,var(--pink),var(--pink2));
-      color:#fff;
-      box-shadow:0 12px 28px rgba(255,0,85,.28);
-    }
-
-    .btn-green{
-      background:linear-gradient(135deg,#24d96f,#00b95a);
-      color:#fff;
-      box-shadow:0 12px 28px rgba(0,185,90,.28);
-    }
-
-    .btn-soft{
-      background:rgba(255,255,255,.10);
-      color:#fff;
-      border:1px solid rgba(255,255,255,.14);
-    }
-
-    .hint{
-      margin-top:12px;
-      font-size:.78rem;
-      color:rgba(255,255,255,.58);
-    }
-
-    .loading{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      margin-top:16px;
-      color:#d9ffe9;
-      font-weight:700;
-      font-size:.92rem;
-    }
-
-    .dots{
-      display:inline-flex;
-      gap:5px;
-    }
-
-    .dots span{
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:#fff;
-      opacity:.35;
-      animation:blink 1s infinite;
-    }
-
-    .dots span:nth-child(2){animation-delay:.2s}
-    .dots span:nth-child(3){animation-delay:.4s}
-
-    @keyframes blink{
-      0%,100%{opacity:.25;transform:translateY(0)}
-      50%{opacity:1;transform:translateY(-3px)}
-    }
-
-    .prize-title{
-      font-size:1.05rem;
-      font-weight:800;
-      color:#c6ffe3;
-      margin-bottom:8px;
-    }
-
-    .prize-highlight{
-      font-size:1.45rem;
-      line-height:1.2;
-      font-weight:900;
-      margin:8px 0 16px;
-      color:#fff;
-    }
-
-    .monkey-box{
-      margin-top:18px;
-      animation:pop .35s ease;
-    }
-
-    .monkey-box img{
-      width:100%;
-      max-width:310px;
-      border-radius:22px;
-      border:2px solid rgba(255,255,255,.18);
-      box-shadow:0 20px 45px rgba(0,0,0,.35);
-    }
-
-    .monkey-text{
-      margin-top:12px;
-      font-size:1rem;
-      font-weight:900;
-      color:#ffd7e8;
-    }
-
-    .sub-troll{
-      margin-top:6px;
-      color:rgba(255,255,255,.78);
-      font-size:.92rem;
-      line-height:1.45;
-    }
-
-    .confetti{
-      position:fixed;
-      top:-20px;
-      width:10px;
-      height:18px;
-      opacity:.9;
-      border-radius:2px;
-      animation:fall linear forwards;
-      z-index:20;
-      pointer-events:none;
-    }
-
-    @keyframes fall{
-      to{
-        transform:translateY(110vh) rotate(720deg);
-        opacity:1;
+      #noBtn {
+        right: 35px;
       }
     }
 
-    @keyframes pop{
-      from{opacity:0;transform:scale(.92)}
-      to{opacity:1;transform:scale(1)}
-    }
+    @media (max-width: 340px) {
+      #yesBtn {
+        left: 15px;
+      }
 
-    @media (max-width:420px){
-      .card{padding:20px 14px 18px}
-      .subtitle{font-size:.9rem}
-      .label{font-size:.64rem;padding-right:10px}
-      .btn{min-width:165px;font-size:.9rem}
-      .prize-highlight{font-size:1.2rem}
+      #noBtn {
+        right: 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="bg-glow"></div>
 
   <div class="card">
-    <div class="shine"></div>
+    <div class="emoji">🍻</div>
 
-    <div class="screen active" id="screen1">
-      <div class="badge">🎉 Sorteio oficial do Giovanne</div>
-      <h1>Giovanne fez um sorteio<br>e você foi o premiado</h1>
-      <p class="subtitle">
-        Seu nome foi selecionado entre os participantes.
-        Gire a roleta para adquirir seu prêmio exclusivo.
-      </p>
+    <h1>Bora tomar uma hoje?</h1>
 
-      <div class="wheel-wrap">
-        <div class="wheel-ring"></div>
-        <div class="pointer"></div>
-        <div class="wheel" id="wheel"></div>
-        <div class="wheel-center">🎁</div>
-      </div>
+    <p>Convite oficial e sem possibilidade de recusa.</p>
 
-      <button class="btn btn-primary" id="spinBtn">🎡 Girar roleta</button>
-      <div class="hint">*prêmios limitados sujeitos à validação automática</div>
+    <div class="buttons" id="buttonsArea">
+      <button id="yesBtn">Sim 😎</button>
+      <button id="noBtn">Não 😔</button>
     </div>
 
-    <div class="screen" id="screen2">
-      <div class="badge">✅ Resultado confirmado</div>
-      <div class="prize-title">Parabéns, seu prêmio foi validado:</div>
-      <div class="prize-highlight">iPhone 17 Pro Max 512GB</div>
-
-      <p class="subtitle">
-        Seu prêmio foi reservado com sucesso. Toque no botão abaixo para receber.
-      </p>
-
-      <button class="btn btn-green" id="claimBtn">📦 Receber prêmio</button>
-
-      <div class="loading" id="loadingBox" style="display:none;">
-        Validando prêmio
-        <span class="dots">
-          <span></span><span></span><span></span>
-        </span>
-      </div>
-    </div>
-
-    <div class="screen" id="screen3">
-      <div class="badge">🎁 Entrega concluída</div>
-
-      <div class="monkey-box">
-        <img src="monkey.webp" alt="Pegadinha">
-        <div class="monkey-text">KKKKKKKK você caiu na pegadinha 🐒</div>
-        <div class="sub-troll">
-          Esse foi o seu grande prêmio premium ultra exclusivo.
-        </div>
-      </div>
-
-      <div style="margin-top:16px;">
-        <button class="btn btn-soft" id="restartBtn">🔄 Trollar outro amigo</button>
-      </div>
-    </div>
+    <div class="footer">escolha com sabedoria...</div>
   </div>
 
   <script>
-    const prizes = [
-      "PIX de R$ 5.000",
-      "PlayStation 5",
-      "Viagem para Maldivas",
-      "Notebook Gamer",
-      "AirPods Max",
-      "TV 75 Polegadas",
-      "Cartão Black",
-      "iPhone 17 Pro Max 512GB"
-    ];
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const buttonsArea = document.getElementById("buttonsArea");
 
-    const TARGET_INDEX = 7; // setor do iPhone
-    const wheel = document.getElementById("wheel");
-    const spinBtn = document.getElementById("spinBtn");
-    const claimBtn = document.getElementById("claimBtn");
-    const restartBtn = document.getElementById("restartBtn");
-    const loadingBox = document.getElementById("loadingBox");
+    const phone = "5592993795370";
+    const message = encodeURIComponent("Bora tomar uma hoje? 🍻 Eu aceito 😎");
 
-    const screen1 = document.getElementById("screen1");
-    const screen2 = document.getElementById("screen2");
-    const screen3 = document.getElementById("screen3");
+    yesBtn.addEventListener("click", () => {
+      window.location.href = `https://wa.me/${phone}?text=${message}`;
+    });
 
-    let spun = false;
-    let audioCtx = null;
+    function moveNoButton() {
+      const padding = 8;
 
-    function getAudioContext() {
-      if (!audioCtx) {
-        const AC = window.AudioContext || window.webkitAudioContext;
-        if (!AC) return null;
-        audioCtx = new AC();
-      }
-      return audioCtx;
+      const areaWidth = buttonsArea.clientWidth;
+      const areaHeight = buttonsArea.clientHeight;
+
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+
+      const maxX = areaWidth - btnWidth - padding;
+      const maxY = areaHeight - btnHeight - padding;
+
+      const randomX = Math.floor(Math.random() * (maxX - padding + 1)) + padding;
+      const randomY = Math.floor(Math.random() * (maxY - padding + 1)) + padding;
+
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.right = "auto";
+      noBtn.style.top = `${randomY}px`;
     }
 
-    async function unlockAudio() {
-      const ctx = getAudioContext();
-      if (!ctx) return null;
-      if (ctx.state === "suspended") {
-        try { await ctx.resume(); } catch(e) {}
-      }
-      return ctx;
-    }
-
-    function showScreen(target) {
-      [screen1, screen2, screen3].forEach(s => s.classList.remove("active"));
-      target.classList.add("active");
-    }
-
-    function buildLabels() {
-      const total = prizes.length;
-      const slice = 360 / total;
-
-      prizes.forEach((text, i) => {
-        const label = document.createElement("div");
-        label.className = "label";
-        const angle = i * slice + slice / 2;
-        label.style.transform = `rotate(${angle}deg) translate(8px, -50%)`;
-        label.textContent = text;
-        wheel.appendChild(label);
-      });
-    }
-
-    function vibrate(pattern = [120, 60, 120]) {
-      if (navigator.vibrate) navigator.vibrate(pattern);
-    }
-
-    async function playTone(type = "win") {
-      const ctx = await unlockAudio();
-      if (!ctx) return;
-
-      const now = ctx.currentTime;
-
-      if (type === "win") {
-        [523.25, 659.25, 783.99].forEach((freq, index) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-
-          osc.type = "triangle";
-          osc.frequency.value = freq;
-
-          gain.gain.setValueAtTime(0.0001, now + index * 0.18);
-          gain.gain.exponentialRampToValueAtTime(0.16, now + index * 0.18 + 0.03);
-          gain.gain.exponentialRampToValueAtTime(0.0001, now + index * 0.18 + 0.34);
-
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-
-          osc.start(now + index * 0.18);
-          osc.stop(now + index * 0.18 + 0.36);
-        });
-      }
-
-      if (type === "monkey") {
-        [280, 220, 310, 180].forEach((freq, index) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-
-          osc.type = "square";
-          osc.frequency.setValueAtTime(freq, now + index * 0.12);
-
-          gain.gain.setValueAtTime(0.0001, now + index * 0.12);
-          gain.gain.exponentialRampToValueAtTime(0.14, now + index * 0.12 + 0.02);
-          gain.gain.exponentialRampToValueAtTime(0.0001, now + index * 0.12 + 0.15);
-
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-
-          osc.start(now + index * 0.12);
-          osc.stop(now + index * 0.12 + 0.17);
-        });
-      }
-    }
-
-    function createConfetti(amount = 100) {
-      const colors = ["#ff2f86","#ffd54a","#18d26e","#4da3ff","#ffffff","#ff7b00"];
-      for (let i = 0; i < amount; i++) {
-        const el = document.createElement("div");
-        el.className = "confetti";
-        el.style.left = Math.random() * 100 + "vw";
-        el.style.animationDuration = (2.8 + Math.random() * 2.4) + "s";
-        el.style.opacity = 0.75 + Math.random() * 0.25;
-        el.style.background = colors[Math.floor(Math.random() * colors.length)];
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 5600);
-      }
-    }
-
-    function getRotationToLandOnIphone() {
-      const total = prizes.length;
-      const slice = 360 / total;
-
-      // cada setor ocupa 45 graus
-      // setor do iPhone (index 7) começa em 315 e termina em 360
-      const sectorStart = TARGET_INDEX * slice; // 315
-      const marginInsideIphone = 3; // parar 3 graus depois da borda -> quase escapando
-
-      // ponto exato onde o ponteiro deve cair DENTRO do setor do iPhone
-      const targetPointInsideSector = sectorStart + marginInsideIphone;
-
-      // ponteiro está no topo = 270deg no círculo CSS
-      const pointerAngle = 270;
-
-      // rotação necessária para alinhar o ponto desejado ao ponteiro
-      let finalRotation = pointerAngle - targetPointInsideSector;
-
-      // normaliza
-      while (finalRotation < 0) finalRotation += 360;
-      while (finalRotation >= 360) finalRotation -= 360;
-
-      return finalRotation;
-    }
-
-    async function spinWheel() {
-      if (spun) return;
-      spun = true;
-
-      await unlockAudio();
-
-      spinBtn.disabled = true;
-      spinBtn.textContent = "Girando...";
-
-      const extraSpins = 360 * 10;
-      const finalRotation = getRotationToLandOnIphone();
-
-      wheel.style.transform = `rotate(${extraSpins + finalRotation}deg)`;
-
-      setTimeout(() => {
-        vibrate([200,100,250]);
-        playTone("win");
-        createConfetti(120);
-        showScreen(screen2);
-      }, 12050);
-    }
-
-    async function claimPrize() {
-      claimBtn.style.display = "none";
-      loadingBox.style.display = "flex";
-      vibrate([80,40,80]);
-
-      setTimeout(async () => {
-        await playTone("monkey");
-        vibrate([240,70,240,70,240]);
-        showScreen(screen3);
-      }, 2200);
-    }
-
-    function restart() {
-      spun = false;
-      wheel.style.transition = "none";
-      wheel.style.transform = "rotate(0deg)";
-      void wheel.offsetWidth;
-      wheel.style.transition = "transform 12s cubic-bezier(.07,.88,.11,1)";
-      spinBtn.disabled = false;
-      spinBtn.textContent = "🎡 Girar roleta";
-      claimBtn.style.display = "inline-block";
-      loadingBox.style.display = "none";
-      showScreen(screen1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    window.addEventListener("click", unlockAudio, { once:true });
-    window.addEventListener("touchstart", unlockAudio, { passive:true, once:true });
-
-    buildLabels();
-
-    spinBtn.addEventListener("click", spinWheel);
-    claimBtn.addEventListener("click", claimPrize);
-    restartBtn.addEventListener("click", restart);
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("mouseover", moveNoButton);
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
   </script>
+
 </body>
 </html>
